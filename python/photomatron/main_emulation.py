@@ -1,6 +1,6 @@
 from PySide import QtGui
 from photomatron.ui import PhotoBooth
-from photomatron.raspberrypi import RaspberryPi
+from photomatron.raspberryemulation import RaspberryPi
 
 
 if __name__ == '__main__':
