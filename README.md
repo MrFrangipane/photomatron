@@ -1,5 +1,5 @@
 # Photomatron
 
-- Raspberry Pi + Camera
+- Raspberry Pi + Camera + GPIO
 - Python / PySide
 - FreeCAD
