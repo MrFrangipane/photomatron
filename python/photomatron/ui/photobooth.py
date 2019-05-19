@@ -20,13 +20,12 @@ class PhotoBooth(QtGui.QWidget):
         self.raspberrypi.camera.start_preview()
 
         self.ui = Ui()
-        self.ui.cameraGeometryChanged.connect(self._camera_geometry_changed)
+        self.ui.cameraGeometryChanged.connect(self.update_camera_window)
         self.layout_ = QtGui.QGridLayout(self)
         self.layout_.setContentsMargins(0, 0, 0, 0)
         self.layout_.addWidget(self.ui)
 
         self.resize(720, 400) #self.resize(800, 480)
-        self._camera_geometry_changed()
 
     def init_buttons_thread(self):
         self.buttons_thread = QtCore.QThread()
@@ -40,7 +39,7 @@ class PhotoBooth(QtGui.QWidget):
         if value:
             self.raspberrypi.camera.capture('photo.jpg')
 
-    def _camera_geometry_changed(self):
+    def update_camera_window(self):
         geometry = self.ui.camera_placeholder_geometry()
         self.raspberrypi.camera.set_geometry(geometry.x(), geometry.y(), geometry.width(), geometry.height())
 

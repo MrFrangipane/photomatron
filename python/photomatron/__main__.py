@@ -9,6 +9,6 @@ if __name__ == '__main__':
     with RaspberryPi() as raspberrypi:
 
         window = PhotoBooth(raspberrypi)
-        window.show()
+        window.showMaximized()
 
         app.exec_()
