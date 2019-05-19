@@ -16,12 +16,12 @@ class Camera:
         self.is_previewing = True
         print('CameraEmulation : start_preview()')
 
-    def set_resolution(self, resolution, centered_x=False, centered_y=False):
+    def set_geometry(self, x, y, width, height):
         if self.is_previewing is None:
             return
 
-        print('CameraEmulation : start_preview(resolution={}, centered_x={}, centered_y={})'.format(
-            resolution, centered_x, centered_y
+        print('CameraEmulation : set_geometry(x={}, y={}, width={}, height={})'.format(
+            x, y, width, height
         ))
 
     def capture(self, filepath):
