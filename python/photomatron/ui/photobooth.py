@@ -9,6 +9,7 @@ class PhotoBooth(QtGui.QWidget):
 
     def __init__(self, raspberrypi, parent=None):
         QtGui.QWidget.__init__(self, parent)
+        self.setStyleSheet("color: white; background-color: black; qproperty-alignment: AlignCenter;")
 
         self.raspberrypi = raspberrypi
         self.image_index = 1
@@ -25,7 +26,7 @@ class PhotoBooth(QtGui.QWidget):
         self.layout_.setContentsMargins(0, 0, 0, 0)
         self.layout_.addWidget(self.ui)
 
-        #self.resize(800, 480)
+        self.resize(800, 480)
 
     def init_buttons_thread(self):
         self.buttons_thread = QtCore.QThread()
