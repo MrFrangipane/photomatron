@@ -26,16 +26,16 @@ class Ui(QtGui.QWidget):
         self.layout_.addWidget(QtGui.QLabel("Message"), 1, 1)
         self.layout_.addWidget(QtGui.QLabel("Buttons"), 2, 1)
 
-        self._previous_camera_geometry = self.camera_geometry()
+        self._previous_camera_geometry = self.camera_placeholder_geometry()
 
     def notify_camera_geometry_changed(self):
         self.cameraGeometryChanged.emit()
 
-    def camera_geometry(self):
+    def camera_placeholder_geometry(self):
         geo = self.camera_placeholder.geometry()
         return QtCore.QRect(self.mapToGlobal(geo.topLeft()), geo.size())
 
     def resizeEvent(self, event):
-        if self._previous_camera_geometry != self.camera_geometry():
+        if self._previous_camera_geometry != self.camera_placeholder_geometry():
             self.notify_camera_geometry_changed()
-            self._previous_camera_geometry = self.camera_geometry()
+            self._previous_camera_geometry = self.camera_placeholder_geometry()

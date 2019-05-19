@@ -41,7 +41,7 @@ class PhotoBooth(QtGui.QWidget):
             self.raspberrypi.camera.capture('photo.jpg')
 
     def _camera_geometry_changed(self):
-        geometry = self.ui.camera_geometry()
+        geometry = self.ui.camera_placeholder_geometry()
         self.raspberrypi.camera.set_geometry(geometry.x(), geometry.y(), geometry.width(), geometry.height())
 
     def closeEvent(self, event):
