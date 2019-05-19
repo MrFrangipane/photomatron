@@ -15,7 +15,7 @@ class Ui(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
 
         self.camera_placeholder = CameraOverlayPlaceholder()
-        self.camera_placeholder.setFixedSize(480, 480)
+        self.camera_placeholder.setFixedSize(475, 475)
 
         self.label_tile = QtGui.QLabel("Photomatron")
         self.label_tile.setFixedHeight(80)

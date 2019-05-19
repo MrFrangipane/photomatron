@@ -11,6 +11,6 @@ if __name__ == '__main__':
 
         window = PhotoBooth(raspberrypi)
         window.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        window.showMaximized()
+        window.showFullScreen()
 
         app.exec_()
