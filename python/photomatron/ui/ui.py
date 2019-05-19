@@ -2,7 +2,7 @@ from PySide import QtGui
 from PySide import QtCore
 
 
-FONT_STRETCH = 0.72
+FONT_STRETCH = 0.90
 
 
 class Fonts:
@@ -10,7 +10,7 @@ class Fonts:
         self.title = QtGui.QFont('Coolvetica Rg', 32)
         self.title.setStretch(FONT_STRETCH * 100)
 
-        self.message = QtGui.QFont('Open Sans', 16)
+        self.message = QtGui.QFont('Open Sans', 24)
         self.message.setStretch(FONT_STRETCH * 100)
 
         self.buttons = QtGui.QFont('Coolvetica Rg', 20)
@@ -40,6 +40,7 @@ class Ui(QtGui.QWidget):
 
         self.label_message = QtGui.QLabel("This is a message from the Queen of Great Britain : Keep calm and take a picture")
         self.label_message.setWordWrap(True)
+        self.label_message.setContentsMargins(20, 20, 20, 20)
         self.label_message.setFont(self.fonts.message)
 
         self.buttons_guide = QtGui.QLabel("Prev | OK | Next")
