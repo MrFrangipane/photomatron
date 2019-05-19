@@ -17,7 +17,7 @@ class Ui(QtGui.QWidget):
         self.setStyleSheet("background-color: red")
 
         self.camera_placeholder = CameraOverlayPlaceholder()
-        self.camera_placeholder.setFixedSize(400, 400)
+        #self.camera_placeholder.setFixedSize(480, 480)
 
         self.layout_ = QtGui.QGridLayout(self)
         self.layout_.setContentsMargins(0, 0, 0, 0)

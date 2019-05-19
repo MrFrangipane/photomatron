@@ -10,6 +10,7 @@ class Camera:
         self.camera = picamera.PiCamera()
         self.camera.resolution = CAPTURE_RESOLUTION
         self.camera.framerate = FRAMERATE
+        self.camera.hflip = True
 
     def start_preview(self):
         if self.camera.preview is None:

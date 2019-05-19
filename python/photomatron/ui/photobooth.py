@@ -25,7 +25,7 @@ class PhotoBooth(QtGui.QWidget):
         self.layout_.setContentsMargins(0, 0, 0, 0)
         self.layout_.addWidget(self.ui)
 
-        self.resize(720, 400) #self.resize(800, 480)
+        #self.resize(800, 480)
 
     def init_buttons_thread(self):
         self.buttons_thread = QtCore.QThread()
