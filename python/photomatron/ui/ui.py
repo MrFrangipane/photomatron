@@ -1,5 +1,6 @@
 from PySide import QtGui
 from PySide import QtCore
+from . buttonswidget import ButtonsWidget
 
 
 FONT_STRETCH = 0.90
@@ -43,9 +44,7 @@ class Ui(QtGui.QWidget):
         self.label_message.setContentsMargins(20, 20, 20, 20)
         self.label_message.setFont(self.fonts.message)
 
-        self.buttons_guide = QtGui.QLabel("Prev | OK | Next")
-        self.buttons_guide.setFont(self.fonts.buttons)
-        self.buttons_guide.setFixedHeight(80)
+        self.buttons_guide = ButtonsWidget()
 
         self.layout_ = QtGui.QGridLayout(self)
         self.layout_.setContentsMargins(0, 0, 0, 0)
