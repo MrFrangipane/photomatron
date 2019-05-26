@@ -30,7 +30,7 @@ QProgressBar::chunk {
 
 def assemble():
     root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-    assembly = QtGui.QPixmap(os.path.join(root, 'resources', 'assembly.png'))
+    assembly = QtGui.QPixmap(os.path.join(root, 'photomatron', 'resources', 'assembly.png'))
 
     photos = sorted(glob(os.path.join(root, '*.jpg')))[-4:]
     photo_0 = QtGui.QPixmap(photos[0]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
