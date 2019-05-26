@@ -1,3 +1,4 @@
+from datetime import datetime
 from PySide import QtGui
 from PySide import QtCore
 from .ui import Ui
@@ -32,6 +33,11 @@ class PhotoBooth(QtGui.QWidget):
         self.raspberrypi = raspberrypi
         self.menus = menus
 
+        self._message = ""
+        self._button_left_ = ""
+        self._button_center_ = ""
+        self._button_right_ = ""
+
         self._button_left_action = None
         self._button_center_action = None
         self._button_right_action = None
@@ -54,7 +60,7 @@ class PhotoBooth(QtGui.QWidget):
         self.time_gauge = 0.0  # in seconds
         self.elapsed = 0.0  # in seconds
         self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self._timer_tick)
+        self.timer.timeout.connect(self._update_ui)
         self.timer.start(TIMER_INTERVAL)
 
         self.resize(800, 480)
@@ -81,7 +87,9 @@ class PhotoBooth(QtGui.QWidget):
                 self.raspberrypi.camera.set_filter(arguments['filter'])
 
             elif 'capture' in arguments.keys():
-                self.raspberrypi.camera.capture(arguments['capture'])
+                self.raspberrypi.camera.capture(arguments['capture'].format(
+                    timestamp=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+                ))
 
         elif name == 'goto':
             self._load_menu(self.menus['menus'][arguments])
@@ -89,10 +97,20 @@ class PhotoBooth(QtGui.QWidget):
         elif name == 'assemble':
             print('ASSEMBLE')  # TODO
 
-    def _timer_tick(self):
-        if self.elapsed < self.time_gauge:
+    def _update_ui(self):
+        self.ui.set_message(self._message.format(
+            elapsed=int(self.elapsed),
+            time_left=int(self.time_gauge - self.elapsed)
+        ))
+        self.ui.set_caption_buttons(
+            left=self._button_left,
+            center=self._button_center,
+            right=self._button_right
+        )
+
+        if self.elapsed <= self.time_gauge and self.time_gauge:
             self.elapsed += TIMER_INTERVAL * 0.001
-            self.ui.set_progress(int(self.elapsed / self.time_gauge * 100))
+            self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
 
         else:
             if self.time_gauge:
@@ -107,12 +125,10 @@ class PhotoBooth(QtGui.QWidget):
 
     def _load_menu(self, menu):
         caption = menu['caption']
-        self.ui.set_caption_message(caption['main'])
-        self.ui.set_caption_buttons(
-            left=caption['button_left'],
-            center=caption['button_center'],
-            right=caption['button_right']
-        )
+        self._message = caption['main']
+        self._button_left = caption['button_left']
+        self._button_center = caption['button_center']
+        self._button_right = caption['button_right']
 
         action = menu['action']
         if 'enter' in action.keys():

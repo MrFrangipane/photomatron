@@ -43,7 +43,7 @@ menus:
     action:
       enter:
         camera:
-          filter: blackandwhite
+          filter: hatch
       button_left:
         goto: filter_sepia
       button_center:
@@ -60,7 +60,7 @@ menus:
     action:
       enter:
         camera:
-          filter: sepia
+          filter: solarize
       button_left:
         goto: filter_normal
       button_center:
@@ -84,7 +84,7 @@ menus:
 
   pre_timer:
     caption:
-      main: '{time_left:d} s'
+      main: '{time_left:d}'
       button_left: ""
       button_center: ""
       button_right: ""

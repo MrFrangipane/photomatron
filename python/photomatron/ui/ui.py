@@ -76,7 +76,7 @@ class Ui(QtGui.QWidget):
 
     #
     # API
-    def set_caption_message(self, text):
+    def set_message(self, text):
         self.label_message.setText(text)
 
     def set_caption_buttons(self, left, center, right):
