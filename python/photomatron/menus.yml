@@ -1,0 +1,163 @@
+start_with: idle
+menus:
+  idle:
+    caption:
+      main: Press any button to get started !
+      button_left: " "
+      button_center: " "
+      button_right: " "
+    action:
+      enter:
+        camera:
+          reset: yes
+      button_left:
+        goto: filter_normal
+      button_center:
+        goto: filter_normal
+      button_right:
+        goto: filter_normal
+
+  filter_normal:
+    caption:
+      main: Normal
+      button_left: Black & White
+      button_center: OK
+      button_right: Sepia
+    action:
+      enter:
+        camera:
+          filter: normal
+      button_left:
+        goto: filter_blackandwhite
+      button_center:
+        goto: pre_photo
+      button_right:
+        goto: filter_sepia
+
+  filter_blackandwhite:
+    caption:
+      main: Black and white
+      button_left: Sepia
+      button_center: OK
+      button_right: Normal
+    action:
+      enter:
+        camera:
+          filter: blackandwhite
+      button_left:
+        goto: filter_sepia
+      button_center:
+        goto: pre_photo
+      button_right:
+        goto: filter_normal
+
+  filter_sepia:
+    caption:
+      main: Sepia
+      button_left: Normal
+      button_center: OK
+      button_right: Black and White
+    action:
+      enter:
+        camera:
+          filter: sepia
+      button_left:
+        goto: filter_normal
+      button_center:
+        goto: pre_photo
+      button_right:
+        goto: filter_blackandwhite
+
+  pre_photo:
+    caption:
+      main: Press any button to launch 5s timer before photos
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      button_left:
+        goto: pre_timer
+      button_center:
+        goto: pre_timer
+      button_right:
+        goto: pre_timer
+
+  pre_timer:
+    caption:
+      main: '{time_left:d} s'
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      elapsed:
+        time: 5
+        goto: photo_1
+
+  photo_1:
+    caption:
+      main: 'Photo 1'
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      enter:
+        camera:
+          capture: yes
+      elapsed:
+        time: 1
+        goto: photo_2
+
+  photo_2:
+    caption:
+      main: 'Photo 2'
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      enter:
+        camera:
+          capture: yes
+      elapsed:
+        time: 1
+        goto: photo_3
+
+  photo_3:
+    caption:
+      main: 'Photo 3'
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      enter:
+        camera:
+          capture: yes
+      elapsed:
+        time: 1
+        goto: photo_4
+
+  photo_4:
+    caption:
+      main: 'Photo 4'
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      enter:
+        camera:
+          capture: yes
+      elapsed:
+        time: 1
+        goto: assemble
+
+  assemble:
+    caption:
+      main: 'Assembling...'
+      button_left: ""
+      button_center: ""
+      button_right: ""
+    action:
+      enter:
+        assemble: yes
+      elapsed:
+        time: 1
+        goto: idle

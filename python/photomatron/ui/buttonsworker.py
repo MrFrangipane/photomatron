@@ -2,7 +2,9 @@ from PySide import QtCore
 
 
 class ButtonsWorker(QtCore.QObject):
+    leftChanged = QtCore.Signal(bool)
     centerChanged = QtCore.Signal(bool)
+    rightChanged = QtCore.Signal(bool)
 
     def __init__(self, buttons, parent=None):
         QtCore.QObject.__init__(self, parent)
@@ -11,7 +13,7 @@ class ButtonsWorker(QtCore.QObject):
 
     def left_changed(self, value):
         self.buttons.set_led(value)
-        print('LEFT CHANGED', value)
+        self.leftChanged.emit(value)
 
     def center_changed(self, value):
         self.buttons.set_led(value)
@@ -19,7 +21,7 @@ class ButtonsWorker(QtCore.QObject):
 
     def right_changed(self, value):
         self.buttons.set_led(value)
-        print('RIGHT CHANGED', value)
+        self.rightChanged.emit(value)
 
     def exec_(self):
         self.buttons.exec_()

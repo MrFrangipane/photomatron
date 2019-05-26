@@ -66,3 +66,9 @@ class Ui(QtGui.QWidget):
         if self._previous_camera_geometry != self.camera_placeholder_geometry():
             self.notify_camera_geometry_changed()
             self._previous_camera_geometry = self.camera_placeholder_geometry()
+
+    def set_caption_message(self, text):
+        self.label_message.setText(text)
+
+    def set_caption_buttons(self, left, center, right):
+        self.buttons_guide.set_captions(left, center, right)
