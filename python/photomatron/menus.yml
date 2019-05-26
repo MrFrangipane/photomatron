@@ -123,7 +123,7 @@ menus:
 
   photo_4:
     caption:
-      main: 'Assembling...4' # UGLY
+      main: 'Assembling...' # TODO UGLY visual hack, this file should allow more flexibility (remove elapsed ?)
       button_left: ""
       button_center: ""
       button_right: ""
@@ -132,7 +132,7 @@ menus:
         camera:
           capture: photo_{timestamp}.jpg
       elapsed:
-        time: 1
+        time: 3 # give camera time to capture anyway
         goto: assemble
         show_progress: no
 
