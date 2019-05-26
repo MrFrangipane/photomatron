@@ -44,14 +44,21 @@ class Ui(QtGui.QWidget):
         self.label_message.setContentsMargins(20, 20, 20, 20)
         self.label_message.setFont(self.fonts.message)
 
+        self.progress_bar = QtGui.QProgressBar()
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setMaximum(100)
+        self.progress_bar.setValue(0)
+        self.progress_bar.setFormat("")
+
         self.buttons_guide = ButtonsWidget()
 
         self.layout_ = QtGui.QGridLayout(self)
         self.layout_.setContentsMargins(0, 0, 0, 0)
-        self.layout_.addWidget(self.camera_placeholder, 0, 0, 3, 1)
+        self.layout_.addWidget(self.camera_placeholder, 0, 0, 4, 1)
         self.layout_.addWidget(self.label_tile, 0, 1)
         self.layout_.addWidget(self.label_message, 1, 1)
-        self.layout_.addWidget(self.buttons_guide, 2, 1)
+        self.layout_.addWidget(self.progress_bar, 2, 1)
+        self.layout_.addWidget(self.buttons_guide, 3, 1)
 
         self._previous_camera_geometry = self.camera_placeholder_geometry()
 
@@ -67,8 +74,13 @@ class Ui(QtGui.QWidget):
             self.notify_camera_geometry_changed()
             self._previous_camera_geometry = self.camera_placeholder_geometry()
 
+    #
+    # API
     def set_caption_message(self, text):
         self.label_message.setText(text)
 
     def set_caption_buttons(self, left, center, right):
         self.buttons_guide.set_captions(left, center, right)
+
+    def set_progress(self, value):
+        self.progress_bar.setValue(value)

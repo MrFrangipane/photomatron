@@ -102,7 +102,7 @@ menus:
     action:
       enter:
         camera:
-          capture: yes
+          capture: photo_{timestamp}.jpg
       elapsed:
         time: 1
         goto: photo_2
@@ -116,7 +116,7 @@ menus:
     action:
       enter:
         camera:
-          capture: yes
+          capture: photo_{timestamp}.jpg
       elapsed:
         time: 1
         goto: photo_3
@@ -130,7 +130,7 @@ menus:
     action:
       enter:
         camera:
-          capture: yes
+          capture: photo_{timestamp}.jpg
       elapsed:
         time: 1
         goto: photo_4
@@ -144,7 +144,7 @@ menus:
     action:
       enter:
         camera:
-          capture: yes
+          capture: photo_{timestamp}.jpg
       elapsed:
         time: 1
         goto: assemble

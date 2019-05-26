@@ -27,5 +27,8 @@ class Camera:
     def capture(self, filepath):
         print('CameraEmulation : capture({})'.format(filepath))
 
+    def set_filter(self, filter):
+        print('CameraEmulation : set_filter({})'.format(filter))
+
     def close(self):
         print('CameraEmulation : close()')

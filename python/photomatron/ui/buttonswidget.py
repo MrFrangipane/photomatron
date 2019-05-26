@@ -19,6 +19,7 @@ class ButtonsWidget(QtGui.QWidget):
         self.caption_left = left
         self.caption_center = center
         self.caption_right = right
+        self.update()
 
     def paintEvent(self, event):
         painter = QtGui.QPainter()

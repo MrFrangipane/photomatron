@@ -3,13 +3,31 @@ from PySide import QtCore
 from .ui import Ui
 from .buttonsworker import ButtonsWorker
 
+TIMER_INTERVAL = 100
+STYLESHEET = """
+* {
+    color: white; 
+    background-color: black; 
+    qproperty-alignment: AlignCenter;
+}
+
+QProgressBar {
+    border: 0px solid white;
+}
+
+QProgressBar::chunk {
+    background-color: white;
+    width: 1px;
+}
+"""
+
 
 class PhotoBooth(QtGui.QWidget):
     closed = QtCore.Signal()
 
     def __init__(self, raspberrypi, menus, parent=None):
         QtGui.QWidget.__init__(self, parent)
-        self.setStyleSheet("color: white; background-color: black; qproperty-alignment: AlignCenter;")
+        self.setStyleSheet(STYLESHEET)
 
         self.raspberrypi = raspberrypi
         self.menus = menus
@@ -17,6 +35,7 @@ class PhotoBooth(QtGui.QWidget):
         self._button_left_action = None
         self._button_center_action = None
         self._button_right_action = None
+        self._elapsed_action = None
 
         self.buttons = ButtonsWorker(self.raspberrypi.buttons)
         self.buttons.leftChanged.connect(self._left_changed)
@@ -32,6 +51,12 @@ class PhotoBooth(QtGui.QWidget):
         self.layout_.setContentsMargins(0, 0, 0, 0)
         self.layout_.addWidget(self.ui)
 
+        self.time_gauge = 0.0  # in seconds
+        self.elapsed = 0.0  # in seconds
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self._timer_tick)
+        self.timer.start(TIMER_INTERVAL)
+
         self.resize(800, 480)
         self._init_menus()
 
@@ -46,7 +71,39 @@ class PhotoBooth(QtGui.QWidget):
         self._load_menu(menu_start)
 
     def _do_action(self, action):
-        print("DO", action)
+        name, arguments = list(action.items())[0]
+
+        if name == 'camera':
+            if arguments == {'reset': True}:
+                self.raspberrypi.camera.set_filter(None)
+
+            elif 'filter' in arguments.keys():
+                self.raspberrypi.camera.set_filter(arguments['filter'])
+
+            elif 'capture' in arguments.keys():
+                self.raspberrypi.camera.capture(arguments['capture'])
+
+        elif name == 'goto':
+            self._load_menu(self.menus['menus'][arguments])
+
+        elif name == 'assemble':
+            print('ASSEMBLE')  # TODO
+
+    def _timer_tick(self):
+        if self.elapsed < self.time_gauge:
+            self.elapsed += TIMER_INTERVAL * 0.001
+            self.ui.set_progress(int(self.elapsed / self.time_gauge * 100))
+
+        else:
+            if self.time_gauge:
+                self.time_gauge = 0
+                self.elapsed = 0
+                self.ui.set_progress(0)
+                self._do_action(self._elapsed_action)
+
+    def _register_timer(self, time, **action):
+        self.time_gauge = time
+        self._elapsed_action = action
 
     def _load_menu(self, menu):
         caption = menu['caption']
@@ -60,6 +117,9 @@ class PhotoBooth(QtGui.QWidget):
         action = menu['action']
         if 'enter' in action.keys():
             self._do_action(action['enter'])
+
+        if 'elapsed' in action.keys():
+            self._register_timer(**action['elapsed'])
 
         self._button_left_action = action.get('button_left')
         self._button_center_action = action.get('button_center')

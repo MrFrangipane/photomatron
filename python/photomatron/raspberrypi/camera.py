@@ -22,5 +22,12 @@ class Camera:
     def capture(self, filepath):
         self.camera.capture(filepath)
 
+    def set_filter(self, filter):
+        if not filter:
+            self.camera.image_effect = 'none'
+
+        else:
+            self.camera.image_effect = filter
+
     def close(self):
         self.camera.close()
