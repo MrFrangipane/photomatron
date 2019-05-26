@@ -1,9 +1,14 @@
+import os
+from glob import glob
 from datetime import datetime
 from PySide import QtGui
 from PySide import QtCore
 from .ui import Ui
 from .buttonsworker import ButtonsWorker
 
+PADDING_X = 40
+PADDING_Y = 75
+SIZE = 540
 TIMER_INTERVAL = 100
 STYLESHEET = """
 * {
@@ -21,6 +26,28 @@ QProgressBar::chunk {
     width: 1px;
 }
 """
+
+
+def assemble():
+    root = (os.path.dirname(os.path.dirname(__file__)))
+    assembly = QtGui.QPixmap(os.path.join(root, 'resources', 'assembly.png'))
+
+    photos = glob(os.path.join(root, '*.jpg'))[-4:]
+    photo_0 = QtGui.QPixmap(photos[0]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+    photo_1 = QtGui.QPixmap(photos[1]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+    photo_2 = QtGui.QPixmap(photos[2]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+    photo_3 = QtGui.QPixmap(photos[3]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+
+    painter = QtGui.QPainter()
+    painter.begin(assembly)
+    painter.drawPixmap(PADDING_X, PADDING_Y, photo_0)
+    painter.drawPixmap(PADDING_X + PADDING_X + SIZE, PADDING_Y, photo_1)
+    painter.drawPixmap(PADDING_X, PADDING_Y + PADDING_Y + SIZE, photo_2)
+    painter.drawPixmap(PADDING_X + PADDING_X + SIZE, PADDING_Y + PADDING_Y + SIZE, photo_3)
+    painter.end()
+
+    assembly_filepath = 'assembly_{}.jpg'.format(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+    assembly.save(os.path.join(root, assembly_filepath))
 
 
 class PhotoBooth(QtGui.QWidget):
@@ -96,7 +123,7 @@ class PhotoBooth(QtGui.QWidget):
             self._load_menu(self.menus['menus'][arguments])
 
         elif name == 'assemble':
-            print('ASSEMBLE')  # TODO
+            assemble()
 
     def _update_ui(self):
         self.ui.set_message(self._message.format(
