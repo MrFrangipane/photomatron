@@ -148,3 +148,4 @@ menus:
       elapsed:
         time: 1
         goto: idle
+        show_progress: no
