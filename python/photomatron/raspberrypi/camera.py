@@ -23,7 +23,7 @@ class Camera:
         self.camera.capture(filepath)
 
     def set_filter(self, filter):
-        if not filter:
+        if not filter or filter.lower() == 'normal':
             self.camera.image_effect = 'none'
 
         else:

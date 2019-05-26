@@ -1,3 +1,4 @@
+import os
 import yaml
 from PySide import QtGui
 from PySide import QtCore
@@ -6,7 +7,9 @@ from photomatron.raspberrypi import RaspberryPi
 
 
 if __name__ == '__main__':
-    with open('menus.yml', 'r') as f_menus:
+    filepath_menus = os.path.join(os.path.dirname(__file__), 'menus.yml')
+
+    with open(filepath_menus, 'r') as f_menus:
         menus_data = yaml.safe_load(f_menus.read())
 
     app = QtGui.QApplication([])
