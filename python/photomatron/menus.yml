@@ -70,20 +70,6 @@ menus:
 
   pre_photo:
     caption:
-      main: Press any button to launch 5s timer before photos
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      button_left:
-        goto: pre_timer
-      button_center:
-        goto: pre_timer
-      button_right:
-        goto: pre_timer
-
-  pre_timer:
-    caption:
       main: '{time_left:d}'
       button_left: ""
       button_center: ""
@@ -104,8 +90,9 @@ menus:
         camera:
           capture: photo_{timestamp}.jpg
       elapsed:
-        time: 1
+        time: 3
         goto: photo_2
+        show_progress: no
 
   photo_2:
     caption:
@@ -118,8 +105,9 @@ menus:
         camera:
           capture: photo_{timestamp}.jpg
       elapsed:
-        time: 1
+        time: 3
         goto: photo_3
+        show_progress: no
 
   photo_3:
     caption:
@@ -132,8 +120,9 @@ menus:
         camera:
           capture: photo_{timestamp}.jpg
       elapsed:
-        time: 1
+        time: 3
         goto: photo_4
+        show_progress: no
 
   photo_4:
     caption:
@@ -146,8 +135,9 @@ menus:
         camera:
           capture: photo_{timestamp}.jpg
       elapsed:
-        time: 1
+        time: 3
         goto: assemble
+        show_progress: no
 
   assemble:
     caption:

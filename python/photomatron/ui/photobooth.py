@@ -37,6 +37,7 @@ class PhotoBooth(QtGui.QWidget):
         self._button_left_ = ""
         self._button_center_ = ""
         self._button_right_ = ""
+        self._show_progress = True
 
         self._button_left_action = None
         self._button_center_action = None
@@ -100,7 +101,7 @@ class PhotoBooth(QtGui.QWidget):
     def _update_ui(self):
         self.ui.set_message(self._message.format(
             elapsed=int(self.elapsed),
-            time_left=int(self.time_gauge - self.elapsed)
+            time_left=int(self.time_gauge - self.elapsed + 1)
         ))
         self.ui.set_caption_buttons(
             left=self._button_left,
@@ -110,7 +111,8 @@ class PhotoBooth(QtGui.QWidget):
 
         if self.elapsed <= self.time_gauge and self.time_gauge:
             self.elapsed += TIMER_INTERVAL * 0.001
-            self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
+            if self._show_progress:
+                self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
 
         else:
             if self.time_gauge:
@@ -121,6 +123,7 @@ class PhotoBooth(QtGui.QWidget):
 
     def _register_timer(self, time, **action):
         self.time_gauge = time
+        self._show_progress = action.get('show_progress', True)
         self._elapsed_action = action
 
     def _load_menu(self, menu):
