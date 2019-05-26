@@ -101,7 +101,7 @@ class PhotoBooth(QtGui.QWidget):
     def _update_ui(self):
         self.ui.set_message(self._message.format(
             elapsed=int(self.elapsed),
-            time_left=int(self.time_gauge - self.elapsed + 1)
+            time_left=min(self.time_gauge, max(1, int(self.time_gauge - self.elapsed + 1)))
         ))
         self.ui.set_caption_buttons(
             left=self._button_left,

@@ -123,7 +123,7 @@ menus:
 
   photo_4:
     caption:
-      main: 'Assembling...' # UGLY
+      main: 'Assembling...4' # UGLY
       button_left: ""
       button_center: ""
       button_right: ""
