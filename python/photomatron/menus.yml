@@ -81,7 +81,7 @@ menus:
 
   photo_1:
     caption:
-      main: 'Photo 1'
+      main: '{time_left:d}'
       button_left: ""
       button_center: ""
       button_right: ""
@@ -92,11 +92,10 @@ menus:
       elapsed:
         time: 3
         goto: photo_2
-        show_progress: no
 
   photo_2:
     caption:
-      main: 'Photo 2'
+      main: '{time_left:d}'
       button_left: ""
       button_center: ""
       button_right: ""
@@ -107,11 +106,10 @@ menus:
       elapsed:
         time: 3
         goto: photo_3
-        show_progress: no
 
   photo_3:
     caption:
-      main: 'Photo 3'
+      main: '{time_left:d}'
       button_left: ""
       button_center: ""
       button_right: ""
@@ -122,11 +120,10 @@ menus:
       elapsed:
         time: 3
         goto: photo_4
-        show_progress: no
 
   photo_4:
     caption:
-      main: 'Photo 4'
+      main: 'Assembling...' # UGLY
       button_left: ""
       button_center: ""
       button_right: ""
@@ -135,7 +132,7 @@ menus:
         camera:
           capture: photo_{timestamp}.jpg
       elapsed:
-        time: 3
+        time: 1
         goto: assemble
         show_progress: no
 
