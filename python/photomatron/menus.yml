@@ -1,151 +1,69 @@
-start_with: idle
-menus:
-  idle:
-    caption:
-      main: Press any button to get started !
-      button_left: " "
-      button_center: " "
-      button_right: " "
-    action:
-      enter:
-        camera:
-          reset: yes
-      button_left:
-        goto: filter_normal
-      button_center:
-        goto: filter_normal
-      button_right:
-        goto: filter_normal
+---
+- type: idle
+  message: Press any button to get started !
+  button_left: " "
+  button_center: " "
+  button_right: " "
 
-  filter_normal:
-    caption:
-      main: Normal
-      button_left: Black & White
-      button_center: OK
-      button_right: Sepia
-    action:
-      enter:
-        camera:
-          filter: normal
-      button_left:
-        goto: filter_blackandwhite
-      button_center:
-        goto: pre_photo
-      button_right:
-        goto: filter_sepia
+- type: countdown
+  duration: 5
+  message: Get ready for first photo
+  button_left: " "
+  button_center: " "
+  button_right: " "
 
-  filter_blackandwhite:
-    caption:
-      main: Black and white
-      button_left: Sepia
-      button_center: OK
-      button_right: Normal
-    action:
-      enter:
-        camera:
-          filter: hatch
-      button_left:
-        goto: filter_sepia
-      button_center:
-        goto: pre_photo
-      button_right:
-        goto: filter_normal
+- type: photo
+  message: Photo 1
+  button_left: " "
+  button_center: " "
+  button_right: " "
+  filename: photo_{timestamp}.jpg
 
-  filter_sepia:
-    caption:
-      main: Sepia
-      button_left: Normal
-      button_center: OK
-      button_right: Black and White
-    action:
-      enter:
-        camera:
-          filter: solarize
-      button_left:
-        goto: filter_normal
-      button_center:
-        goto: pre_photo
-      button_right:
-        goto: filter_blackandwhite
+- type: countdown
+  duration: 5
+  message: Get ready for second photo
+  button_left: " "
+  button_center: " "
+  button_right: " "
 
-  pre_photo:
-    caption:
-      main: '{time_left:d}'
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      elapsed:
-        time: 5
-        goto: photo_1
+- type: photo
+  message: Photo 2
+  button_left: " "
+  button_center: " "
+  button_right: " "
+  filename: photo_{timestamp}.jpg
 
-  photo_1:
-    caption:
-      main: '{time_left:d}'
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      enter:
-        camera:
-          capture: photo_{timestamp}.jpg
-      elapsed:
-        time: 3
-        goto: photo_2
+- type: countdown
+  duration: 5
+  message: Get ready for third photo
+  button_left: " "
+  button_center: " "
+  button_right: " "
 
-  photo_2:
-    caption:
-      main: '{time_left:d}'
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      enter:
-        camera:
-          capture: photo_{timestamp}.jpg
-      elapsed:
-        time: 3
-        goto: photo_3
+- type: photo
+  message: Photo 3
+  button_left: " "
+  button_center: " "
+  button_right: " "
+  filename: photo_{timestamp}.jpg
 
-  photo_3:
-    caption:
-      main: '{time_left:d}'
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      enter:
-        camera:
-          capture: photo_{timestamp}.jpg
-      elapsed:
-        time: 3
-        goto: photo_4
+- type: countdown
+  duration: 5
+  message: Get ready for fourth photo
+  button_left: " "
+  button_center: " "
+  button_right: " "
 
-  photo_4:
-    caption:
-      main: 'Assembling...' # TODO UGLY visual hack, this file should allow more flexibility (remove elapsed ?)
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      enter:
-        camera:
-          capture: photo_{timestamp}.jpg
-      elapsed:
-        time: 3 # give camera time to capture anyway
-        goto: assemble
-        show_progress: no
+- type: photo
+  message: Photo 4
+  button_left: " "
+  button_center: " "
+  button_right: " "
+  filename: photo_{timestamp}.jpg
 
-  assemble:
-    caption:
-      main: 'Assembling...'
-      button_left: ""
-      button_center: ""
-      button_right: ""
-    action:
-      enter:
-        assemble: yes
-      elapsed:
-        time: 1
-        goto: idle
-        show_progress: no
+- type: assemble
+  message: Assembling ...
+  button_left: " "
+  button_center: " "
+  button_right: " "
+  filename: assembly_{timestamp}.jpg

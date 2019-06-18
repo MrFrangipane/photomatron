@@ -6,6 +6,7 @@ from PySide import QtCore
 from .ui import Ui
 from .buttonsworker import ButtonsWorker
 
+NEXT = '#N#E#X#T#'
 PADDING_X = 40
 PADDING_Y = 75
 SIZE = 540
@@ -33,6 +34,10 @@ def assemble():
     assembly = QtGui.QPixmap(os.path.join(root, 'photomatron', 'resources', 'assembly.png'))
 
     photos = sorted(glob(os.path.join(root, '*.jpg')))[-4:]
+    if not photos:
+        print('No photos found in ' + root)
+        return
+
     photo_0 = QtGui.QPixmap(photos[0]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
     photo_1 = QtGui.QPixmap(photos[1]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
     photo_2 = QtGui.QPixmap(photos[2]).scaled(SIZE, SIZE, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
@@ -59,6 +64,7 @@ class PhotoBooth(QtGui.QWidget):
 
         self.raspberrypi = raspberrypi
         self.menus = menus
+        self.menu_index = 0
 
         self._message = ""
         self._button_left_ = ""
@@ -69,7 +75,7 @@ class PhotoBooth(QtGui.QWidget):
         self._button_left_action = None
         self._button_center_action = None
         self._button_right_action = None
-        self._elapsed_action = None
+        self._elapsed_menu = None
 
         self.buttons = ButtonsWorker(self.raspberrypi.buttons)
         self.buttons.leftChanged.connect(self._left_changed)
@@ -95,35 +101,34 @@ class PhotoBooth(QtGui.QWidget):
         self._init_menus()
 
     def _init_menus(self):
-        try:
-            menus = self.menus['menus']
-            menu_start = menus.get(self.menus.get('start_with'))
-        except ValueError as e:
-            print("Check menu.yml for mistakes")
-            return
-
-        self._load_menu(menu_start)
+        self.menu_index = 0
+        self._load_menu()
 
     def _do_action(self, action):
-        name, arguments = list(action.items())[0]
+        if action == NEXT:
+            self._load_menu()
 
-        if name == 'camera':
-            if arguments == {'reset': True}:
-                self.raspberrypi.camera.set_filter(None)
+        elif action['type'] == 'idle':
+            self._button_left_action = NEXT
+            self._button_center_action = NEXT
+            self._button_right_action = NEXT
 
-            elif 'filter' in arguments.keys():
-                self.raspberrypi.camera.set_filter(arguments['filter'])
+        elif action['type'] == 'countdown':
+            self._register_timer(
+                time=action['duration']
+            )
 
-            elif 'capture' in arguments.keys():
-                self.raspberrypi.camera.capture(arguments['capture'].format(
+        elif action['type'] == 'photo':
+            self.raspberrypi.camera.capture(
+                action['filename'].format(
                     timestamp=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-                ))
+                )
+            )
+            self._load_menu()
 
-        elif name == 'goto':
-            self._load_menu(self.menus['menus'][arguments])
-
-        elif name == 'assemble':
+        elif action['type'] == 'assemble':
             assemble()
+            self._load_menu()
 
     def _update_ui(self):
         self.ui.set_message(self._message.format(
@@ -146,30 +151,29 @@ class PhotoBooth(QtGui.QWidget):
                 self.time_gauge = 0
                 self.elapsed = 0
                 self.ui.set_progress(0)
-                self._do_action(self._elapsed_action)
+                self._load_menu()
 
-    def _register_timer(self, time, **action):
+    def _register_timer(self, time):
         self.time_gauge = time
-        self._show_progress = action.get('show_progress', True)
-        self._elapsed_action = action
 
-    def _load_menu(self, menu):
-        caption = menu['caption']
-        self._message = caption['main']
-        self._button_left = caption['button_left']
-        self._button_center = caption['button_center']
-        self._button_right = caption['button_right']
+    def _load_menu(self):
+        if self.menu_index >= len(self.menus):
+            self.menu_index = 0
 
-        action = menu['action']
-        if 'enter' in action.keys():
-            self._do_action(action['enter'])
+        menu = self.menus[self.menu_index]
 
-        if 'elapsed' in action.keys():
-            self._register_timer(**action['elapsed'])
+        self._button_left_action = None
+        self._button_center_action = None
+        self._button_right_action = None
 
-        self._button_left_action = action.get('button_left')
-        self._button_center_action = action.get('button_center')
-        self._button_right_action = action.get('button_right')
+        self._message = menu['message']
+        self._button_left = menu['button_left']
+        self._button_center = menu['button_center']
+        self._button_right = menu['button_right']
+
+        self.menu_index += 1
+
+        self._do_action(menu)
 
     def _init_buttons_thread(self):
         self.buttons_thread = QtCore.QThread()
