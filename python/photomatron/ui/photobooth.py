@@ -148,6 +148,8 @@ class PhotoBooth(QtGui.QWidget):
             right=self._button_right
         )
 
+        QtGui.QApplication.processEvents()
+
         if self.elapsed <= self.time_gauge and self.time_gauge:
             self.elapsed += TIMER_INTERVAL * 0.001
             self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
