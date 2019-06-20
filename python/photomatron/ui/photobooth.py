@@ -63,13 +63,14 @@ def assemble():
 class PhotoBooth(QtGui.QWidget):
     closed = QtCore.Signal()
 
-    def __init__(self, raspberrypi, menus, parent=None):
+    def __init__(self, raspberrypi, menus, gdrive_folder_id, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.setStyleSheet(STYLESHEET)
 
         self.raspberrypi = raspberrypi
         self.menus = menus
         self.menu_index = 0
+        self.gdrive_folder_id = gdrive_folder_id
 
         self._message = ""
         self._button_left_ = ""
@@ -133,7 +134,7 @@ class PhotoBooth(QtGui.QWidget):
         elif action['type'] == 'assemble':
             filepath = assemble()
             if filepath is not None:
-                gdrive.post_picture(filepath)
+                gdrive.post_picture(filepath, self.gdrive_folder_id)
             self._load_menu()
 
     def _update_ui(self):

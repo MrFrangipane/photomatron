@@ -3,9 +3,6 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
 
-_FOLDER = 'XXXXX'
-
-
 def _authenticate():
     client_secret = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
     credentials = os.path.join(os.path.dirname(__file__), 'credentials.json')
@@ -28,7 +25,7 @@ def _authenticate():
     return gauth
 
 
-def post_picture(filepath):
+def post_picture(filepath, folder_id):
     authorization = _authenticate()
     drive = GoogleDrive(authorization)
     gfile = drive.CreateFile({
@@ -36,7 +33,7 @@ def post_picture(filepath):
         'mimeType': 'image/jpg',
         'parents': [{
             'kind': 'drive#fileLink',
-            'id': _FOLDER
+            'id': folder_id
         }]
     })
     gfile.SetContentFile(filepath)
