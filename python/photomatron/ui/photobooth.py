@@ -1,11 +1,12 @@
 import os
-import time
 from glob import glob
 from datetime import datetime
 from PySide import QtGui
 from PySide import QtCore
 from .ui import Ui
 from .buttonsworker import ButtonsWorker
+from .. import gdrive
+
 
 NEXT = '#N#E#X#T#'
 PADDING_X = 40
@@ -33,8 +34,8 @@ QProgressBar::chunk {
 def assemble():
     root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
     assembly = QtGui.QPixmap(os.path.join(root, 'photomatron', 'resources', 'assembly.png'))
-
     photos = sorted(glob(os.path.join(root, '*.jpg')))[-4:]
+
     if not photos:
         print('No photos found in ' + root)
         return
@@ -52,8 +53,11 @@ def assemble():
     painter.drawPixmap(PADDING_X + PADDING_X + SIZE, PADDING_Y + PADDING_Y + SIZE, photo_3)
     painter.end()
 
-    assembly_filepath = 'assembly_{}.jpg'.format(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
-    assembly.save(os.path.join(root, assembly_filepath))
+    assembly_filename = 'assembly_{}.jpg'.format(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+    assembly_filepath = os.path.join(root, assembly_filename)
+
+    assembly.save(assembly_filepath)
+    return assembly_filepath
 
 
 class PhotoBooth(QtGui.QWidget):
@@ -127,8 +131,9 @@ class PhotoBooth(QtGui.QWidget):
             self._load_menu()
 
         elif action['type'] == 'assemble':
-            time.sleep(0.2)
-            assemble()
+            filepath = assemble()
+            if filepath is not None:
+                gdrive.post_picture(filepath)
             self._load_menu()
 
     def _update_ui(self):
