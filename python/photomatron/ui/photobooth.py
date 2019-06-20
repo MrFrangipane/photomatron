@@ -66,6 +66,7 @@ class PhotoBooth(QtGui.QWidget):
     def __init__(self, raspberrypi, menus, gdrive_folder_id, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.setStyleSheet(STYLESHEET)
+        self.setCursor(QtCore.Qt.BlankCursor)
 
         self.raspberrypi = raspberrypi
         self.menus = menus
