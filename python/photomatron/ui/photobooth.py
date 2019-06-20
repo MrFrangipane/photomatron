@@ -1,4 +1,5 @@
 import os
+import time
 from glob import glob
 from datetime import datetime
 from PySide import QtGui
@@ -70,7 +71,6 @@ class PhotoBooth(QtGui.QWidget):
         self._button_left_ = ""
         self._button_center_ = ""
         self._button_right_ = ""
-        self._show_progress = True
 
         self._button_left_action = None
         self._button_center_action = None
@@ -127,6 +127,7 @@ class PhotoBooth(QtGui.QWidget):
             self._load_menu()
 
         elif action['type'] == 'assemble':
+            time.sleep(0.2)
             assemble()
             self._load_menu()
 
@@ -143,8 +144,7 @@ class PhotoBooth(QtGui.QWidget):
 
         if self.elapsed <= self.time_gauge and self.time_gauge:
             self.elapsed += TIMER_INTERVAL * 0.001
-            if self._show_progress:
-                self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
+            self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
 
         else:
             if self.time_gauge:
@@ -173,6 +173,7 @@ class PhotoBooth(QtGui.QWidget):
 
         self.menu_index += 1
 
+        self._update_ui()
         self._do_action(menu)
 
     def _init_buttons_thread(self):
