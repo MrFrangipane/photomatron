@@ -1,7 +1,10 @@
+import time
 import picamera
+
 
 CAPTURE_RESOLUTION = 2048, 2048
 FRAMERATE = 40
+CAPTURE_SLEEP = .2
 
 
 class Camera:
@@ -21,6 +24,7 @@ class Camera:
 
     def capture(self, filepath):
         self.camera.capture(filepath)
+        time.sleep(CAPTURE_SLEEP)
 
     def set_filter(self, filter):
         if not filter or filter.lower() == 'normal':

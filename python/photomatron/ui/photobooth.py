@@ -114,6 +114,9 @@ class PhotoBooth(QtGui.QWidget):
         self._load_menu()
 
     def _do_action(self, action):
+        self.update()
+        QtGui.QApplication.processEvents()
+
         if action == NEXT:
             self._load_menu()
 
@@ -158,8 +161,6 @@ class PhotoBooth(QtGui.QWidget):
             center=self._button_center,
             right=self._button_right
         )
-
-        QtGui.QApplication.processEvents()
 
         if self.elapsed <= self.time_gauge and self.time_gauge:
             self.elapsed += TIMER_INTERVAL * 0.001
