@@ -22,6 +22,8 @@ STYLESHEET = """
 
 QProgressBar {
     border: 0px solid white;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 QProgressBar::chunk {
@@ -97,8 +99,9 @@ class PhotoBooth(QtGui.QWidget):
         self.layout_.setContentsMargins(0, 0, 0, 0)
         self.layout_.addWidget(self.ui)
 
-        self.time_gauge = 0.0  # in seconds
         self.elapsed = 0.0  # in seconds
+        self.time_gauge = 0.0  # in seconds
+        self.show_progress = True
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self._update_ui)
         self.timer.start(TIMER_INTERVAL)
@@ -121,7 +124,8 @@ class PhotoBooth(QtGui.QWidget):
 
         elif action['type'] == 'countdown':
             self._register_timer(
-                time=action['duration']
+                time=action['duration'],
+                show_progress=True
             )
 
         elif action['type'] == 'photo':
@@ -138,6 +142,12 @@ class PhotoBooth(QtGui.QWidget):
                 gdrive.post_picture(filepath, self.gdrive_folder_id)
             self._load_menu()
 
+        elif action['type'] == 'message':
+            self._register_timer(
+                time=action['duration'],
+                show_progress=False
+            )
+
     def _update_ui(self):
         self.ui.set_message(self._message.format(
             elapsed=int(self.elapsed),
@@ -153,7 +163,8 @@ class PhotoBooth(QtGui.QWidget):
 
         if self.elapsed <= self.time_gauge and self.time_gauge:
             self.elapsed += TIMER_INTERVAL * 0.001
-            self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
+            if self.show_progress:
+                self.ui.set_progress(100 - int(self.elapsed / self.time_gauge * 100))
 
         else:
             if self.time_gauge:
@@ -162,8 +173,9 @@ class PhotoBooth(QtGui.QWidget):
                 self.ui.set_progress(0)
                 self._load_menu()
 
-    def _register_timer(self, time):
+    def _register_timer(self, time, show_progress):
         self.time_gauge = time
+        self.show_progress = show_progress
 
     def _load_menu(self):
         if self.menu_index >= len(self.menus):

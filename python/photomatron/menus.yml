@@ -1,13 +1,13 @@
 ---
 - type: idle
-  message: Press any button to get started !
+  message: Press any button to get started
   button_left: " "
   button_center: " "
   button_right: " "
 
 - type: countdown
   duration: 5
-  message: Get ready for first photo
+  message: Get ready ! 1/4
   button_left: " "
   button_center: " "
   button_right: " "
@@ -20,8 +20,8 @@
   filename: photo_{timestamp}.jpg
 
 - type: countdown
-  duration: 5
-  message: Get ready for second photo
+  duration: 3
+  message: Get ready ! 2/4
   button_left: " "
   button_center: " "
   button_right: " "
@@ -34,8 +34,8 @@
   filename: photo_{timestamp}.jpg
 
 - type: countdown
-  duration: 5
-  message: Get ready for third photo
+  duration: 3
+  message: Get ready ! 3/4
   button_left: " "
   button_center: " "
   button_right: " "
@@ -48,8 +48,8 @@
   filename: photo_{timestamp}.jpg
 
 - type: countdown
-  duration: 5
-  message: Get ready for fourth photo
+  duration: 3
+  message: Get ready ! 4/4
   button_left: " "
   button_center: " "
   button_right: " "
@@ -62,8 +62,15 @@
   filename: photo_{timestamp}.jpg
 
 - type: assemble
-  message: Assembling ...
+  message: Posting ...
   button_left: " "
   button_center: " "
   button_right: " "
   filename: assembly_{timestamp}.jpg
+
+- type: message
+  duration: 2
+  message: Your photo was posted !
+  button_left: " "
+  button_center: " "
+  button_right: " "

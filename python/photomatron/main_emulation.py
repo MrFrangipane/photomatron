@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
     with RaspberryPi() as raspberrypi:
 
-        window = PhotoBooth(raspberrypi, menus_data)
+        window = PhotoBooth(raspberrypi, menus_data, '')
         window.show()
 
         app.exec_()

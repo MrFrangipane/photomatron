@@ -1,5 +1,3 @@
-*.py[cod]
-__pycache__
 gdrive/client_secrets.json
 gdrive/credentials.json
 gdrive_folder.txt

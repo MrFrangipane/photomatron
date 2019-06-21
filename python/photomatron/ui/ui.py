@@ -58,7 +58,7 @@ class Ui(QtGui.QWidget):
         self.layout_.addWidget(self.label_tile, 0, 1)
         self.layout_.addWidget(self.label_message, 1, 1)
         self.layout_.addWidget(self.progress_bar, 2, 1)
-        self.layout_.addWidget(self.buttons_guide, 3, 1)
+        #self.layout_.addWidget(self.buttons_guide, 3, 1)
 
         self._previous_camera_geometry = self.camera_placeholder_geometry()
 
