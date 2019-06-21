@@ -23,8 +23,8 @@ class Camera:
         self.camera.preview.window = x, y, width, height
 
     def capture(self, filepath):
-        self.camera.capture(filepath)
         time.sleep(CAPTURE_SLEEP)
+        self.camera.capture(filepath)
 
     def set_filter(self, filter):
         if not filter or filter.lower() == 'normal':
