@@ -153,7 +153,10 @@ class PhotoBooth(QtGui.QWidget):
 
         elif action['type'] == 'print':
             if self.last_filepath is not None:
-                self.raspberrypi.printer.print_picture(self.last_filepath)
+                self.raspberrypi.printer.print_picture(
+                    filepath=self.last_filepath,
+                    printer_name=action['printer_name']
+                )
             self._load_menu()
 
         elif action['type'] == 'message':
