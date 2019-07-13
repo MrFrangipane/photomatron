@@ -89,7 +89,7 @@
   button_center: " "
   button_right: " "
 
-- type: message
+- type: countdown
   duration: 60
   message: Please wait while printing ...
   button_left: " "
