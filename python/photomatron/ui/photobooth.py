@@ -10,7 +10,7 @@ from .. import gdrive
 
 NEXT = '#N#E#X#T#'
 PADDING_X = 40
-PADDING_Y = 75
+PADDING_Y = 40
 SIZE = 540
 TIMER_INTERVAL = 100
 STYLESHEET = """
