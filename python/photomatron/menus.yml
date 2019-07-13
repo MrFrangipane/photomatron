@@ -62,15 +62,42 @@
   filename: photo_{timestamp}.jpg
 
 - type: assemble
-  message: Posting ...
+  message: Assembling ...
   button_left: " "
   button_center: " "
   button_right: " "
   filename: assembly_{timestamp}.jpg
 
+- type: post
+  message: Posting ...
+  gdrive_folder_id: "{{gdrive_folder}}"
+  button_left: " "
+  button_center: " "
+  button_right: " "
+
 - type: message
   duration: 2
   message: Your photo was posted !
+  button_left: " "
+  button_center: " "
+  button_right: " "
+
+- type: print
+  message: Printing ...
+  button_left: " "
+  button_center: " "
+  button_right: " "
+
+- type: message
+  duration: 2
+  message: Please wait while printing ...
+  button_left: " "
+  button_center: " "
+  button_right: " "
+
+- type: message
+  duration: 2
+  message: You can get your photo !
   button_left: " "
   button_center: " "
   button_right: " "
