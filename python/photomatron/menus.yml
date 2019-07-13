@@ -90,7 +90,7 @@
   button_right: " "
 
 - type: message
-  duration: 2
+  duration: 60
   message: Please wait while printing ...
   button_left: " "
   button_center: " "
