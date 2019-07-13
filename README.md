@@ -1,15 +1,11 @@
 # Photomatron
 
 - Raspberry Pi + Camera + GPIO
-- Python / PySide
+- Python / PySide / PyCups
 - FreeCAD
 
 ## Printer
 
-> Bonjour,
-> je suis aussi en train de réaliser un photobooth.
-> Pour l’imprimante CP1300 j’utilise tout simplement le driver proposé dans la liste CUPS, je choisis CP910 et ça fonctionne parfaitement en USB.
-> Par contre si vous voulez utiliser l’imprimante en Wifi il faut utiliser le driver CP1300 indiqué plus haut.
-> A+
+### Canon Selphy CP1300
 
-https://forum.raspbian-france.fr/t/canon-selphy-cp-1300/7346/10
+Use 'CP910' driver from Cups
