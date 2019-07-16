@@ -58,7 +58,7 @@ def assemble():
     assembly_filename = 'assembly_{}.jpg'.format(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     assembly_filepath = os.path.join(root, assembly_filename)
 
-    assembly.save(assembly_filepath)
+    assembly.save(assembly_filepath, 'jpg', 100)
     return assembly_filepath
 
 
