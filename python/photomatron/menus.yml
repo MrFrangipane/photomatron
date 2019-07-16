@@ -20,7 +20,7 @@
   filename: photo_{timestamp}.jpg
 
 - type: countdown
-  duration: 3
+  duration: 5
   message: Get ready ! 2/4
   button_left: " "
   button_center: " "
@@ -34,7 +34,7 @@
   filename: photo_{timestamp}.jpg
 
 - type: countdown
-  duration: 3
+  duration: 5
   message: Get ready ! 3/4
   button_left: " "
   button_center: " "
@@ -48,7 +48,7 @@
   filename: photo_{timestamp}.jpg
 
 - type: countdown
-  duration: 3
+  duration: 5
   message: Get ready ! 4/4
   button_left: " "
   button_center: " "
