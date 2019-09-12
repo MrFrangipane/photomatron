@@ -5,8 +5,9 @@ import picamera
 CAPTURE_RESOLUTION = 2048, 2048
 FRAMERATE = 40
 CAPTURE_SLEEP = .2
-OVER_SATURATION = 20
-OVER_BRIGHTNESS = 10
+OVER_SATURATION = 25
+OVER_BRIGHTNESS = 5
+
 
 class Camera:
 
@@ -24,6 +25,7 @@ class Camera:
             self.camera.start_preview(fullscreen=False)
 
     def set_geometry(self, x, y, width, height):
+        self._geometry = x, y, width, height
         self.camera.preview.window = x, y, width, height
 
     def capture(self, filepath):
@@ -36,6 +38,7 @@ class Camera:
 
         self.init_cam()
         self.start_preview()
+        self.camera.preview.window = self._geometry
 
     def set_filter(self, filter):
         if not filter or filter.lower() == 'normal':
