@@ -58,6 +58,10 @@ def assemble():
     assembly_filename = 'assembly_{}.jpg'.format(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     assembly_filepath = os.path.join(root, assembly_filename)
 
+    rotation = QtGui.QTransform()
+    rotation.rotate(180)
+    assembly = assembly.transformed(rotation)
+
     assembly.save(assembly_filepath, 'jpg', 100)
     return assembly_filepath
 

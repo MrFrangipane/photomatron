@@ -10,6 +10,9 @@ CAPTURE_SLEEP = .2
 class Camera:
 
     def __init__(self):
+        self.init_cam()
+
+    def init_cam(self):
         self.camera = picamera.PiCamera()
         self.camera.resolution = CAPTURE_RESOLUTION
         self.camera.framerate = FRAMERATE
@@ -24,7 +27,12 @@ class Camera:
 
     def capture(self, filepath):
         time.sleep(CAPTURE_SLEEP)
+        self.camera.saturation = min(100, self.camera.saturation + 20)
+        self.camera.brightness = min(100, self.camera.brightness + 20)
         self.camera.capture(filepath)
+
+        self.camera.close()
+        self.init_cam()
 
     def set_filter(self, filter):
         if not filter or filter.lower() == 'normal':
