@@ -5,7 +5,8 @@ import picamera
 CAPTURE_RESOLUTION = 2048, 2048
 FRAMERATE = 40
 CAPTURE_SLEEP = .2
-
+OVER_SATURATION = 20
+OVER_BRIGHTNESS = 10
 
 class Camera:
 
@@ -27,12 +28,14 @@ class Camera:
 
     def capture(self, filepath):
         time.sleep(CAPTURE_SLEEP)
-        self.camera.saturation = min(100, self.camera.saturation + 20)
-        self.camera.brightness = min(100, self.camera.brightness + 20)
-        self.camera.capture(filepath)
+        self.camera.saturation = min(100, self.camera.saturation + OVER_SATURATION)
+        self.camera.brightness = min(100, self.camera.brightness + OVER_BRIGHTNESS)
 
+        self.camera.capture(filepath)
         self.camera.close()
+
         self.init_cam()
+        self.start_preview()
 
     def set_filter(self, filter):
         if not filter or filter.lower() == 'normal':
