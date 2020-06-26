@@ -68,37 +68,37 @@
   button_right: " "
   filename: assembly_{timestamp}.jpg
 
-#- type: post
-#  message: Posting ...
-#  gdrive_folder_id: "{{gdrive_folder}}"
-#  button_left: " "
-#  button_center: " "
-#  button_right: " "
-#
-#- type: message
-#  duration: 2
-#  message: Your photo was posted !
-#  button_left: " "
-#  button_center: " "
-#  button_right: " "
-
-- type: print
-  message: Sending to printer ...
-  printer_name: Canon-SELPHY-CP1300
-  button_left: " "
-  button_center: " "
-  button_right: " "
-
-- type: countdown
-  duration: 60
-  message: Please wait while printing ...
+- type: post
+  message: Posting ...
+  gdrive_folder_id: "{{gdrive_folder}}"
   button_left: " "
   button_center: " "
   button_right: " "
 
 - type: message
   duration: 2
-  message: You can get your photo !
+  message: Your photo was posted !
   button_left: " "
   button_center: " "
   button_right: " "
+
+#- type: print
+#  message: Sending to printer ...
+#  printer_name: Canon-SELPHY-CP1300
+#  button_left: " "
+#  button_center: " "
+#  button_right: " "
+#
+#- type: countdown
+#  duration: 60
+#  message: Please wait while printing ...
+#  button_left: " "
+#  button_center: " "
+#  button_right: " "
+#
+#- type: message
+#  duration: 2
+#  message: You can get your photo !
+#  button_left: " "
+#  button_center: " "
+#  button_right: " "

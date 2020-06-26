@@ -6,6 +6,7 @@ from PySide import QtCore
 from .ui import Ui
 from .buttonsworker import ButtonsWorker
 from .. import gdrive
+from .. import photoboothfrangitron
 
 
 NEXT = '#N#E#X#T#'
@@ -58,7 +59,7 @@ def assemble():
     assembly_filename = 'assembly_{}.jpg'.format(datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     assembly_filepath = os.path.join(root, assembly_filename)
 
-    # # Rotation messes the margins
+    # Rotation messes up the margins
     # rotation = QtGui.QTransform()
     # rotation.rotate(180)
     # assembly = assembly.transformed(rotation)
@@ -150,10 +151,12 @@ class PhotoBooth(QtGui.QWidget):
 
         elif action['type'] == 'post':
             if self.last_filepath is not None:
-                gdrive.post_picture(
-                    self.last_filepath,
-                    action['gdrive_folder_id']
-                )
+                photoboothfrangitron.post_image(self.last_filepath)
+                #
+                # gdrive.post_picture(
+                #     self.last_filepath,
+                #     action['gdrive_folder_id']
+                # )
             self._load_menu()
 
         elif action['type'] == 'print':

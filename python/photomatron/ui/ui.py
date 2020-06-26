@@ -21,7 +21,7 @@ class Fonts:
 class CameraOverlayPlaceholder(QtGui.QLabel):
     def __init__(self, parent=None):
         QtGui.QLabel.__init__(self, parent)
-        self.setText("Camera Overlay Placeholder")
+        self.setText("Please wait for camera ...")
 
 
 class Ui(QtGui.QWidget):
